@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Generator</title>
+    <style>
+        .container {
+            width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 20px;
+            border: 2px solid black;
+            border-radius: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .number-box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .number {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+
+        .prime {
+            background-color: red;
+        }
+
+        .even {
+            background-color: green;
+        }
+
+        .composite {
+            background-color: yellow;
+        }
+
+        .description {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .color-box {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        .color-indicator {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Number Generator</h1>
+        <div class="input-group">
+            <input type="number" id="num" placeholder="Enter a number">
+            <button class="button" onclick="generateNumbers()">Generate</button>
+        </div>
+        <div id="number-box" class="number-box"></div>
+        <div class="description">
+            <div class="color-box"><div class="color-indicator" style="background-color: red;"></div> Prime Numbers</div>
+            <div class="color-box"><div class="color-indicator" style="background-color: green;"></div> Even Numbers</div>
+            <div class="color-box"><div class="color-indicator" style="background-color: yellow;"></div> Composite Numbers</div>
+        </div>
+    </div>
+
+    <script>
+        function generateNumbers() {
+            const num = parseInt(document.getElementById('num').value);
+            const box = document.getElementById('number-box');
+            box.innerHTML = '';
+
+            for (let i = 0; i <= num; i++) {
+                let numberDiv = document.createElement('div');
+                numberDiv.textContent = i;
+                numberDiv.classList.add('number');
+
+                if (i == 2 || (i % 2 !== 0 && isPrime(i))) {
+                    numberDiv.classList.add('prime');
+                } else if (i % 2 === 0) {
+                    numberDiv.classList.add('even');
+                } else {
+                    numberDiv.classList.add('composite');
+                }
+
+                box.appendChild(numberDiv);
+            }
+        }
+
+        function isPrime(num) {
+            if (num <= 1) return false;
+            if (num <= 3) return true;
+            if (num % 2 === 0 || num % 3 === 0) return false;
+            for (let i = 5; i * i <= num; i += 6) {
+                if (num % i === 0 || num % (i + 2) === 0) return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
